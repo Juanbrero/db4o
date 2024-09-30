@@ -26,11 +26,11 @@ public abstract class AbstractQuery<T> {
     public void cargar(T e) {
         if (buscar(e).isEmpty()) {
             getDb().store(e);
-            System.out.println("\nObjeto " + e.getClass().getName() + " creado y guardado con exito.\n");
+            System.out.println("\nObjeto " + e.getClass().getSimpleName() + " creado y guardado con exito.\n");
             getDb().commit();
         }
         else {
-            System.out.println("\nObjeto " + e.getClass().getName() + " ya existe.\n");
+            System.out.println("\nObjeto " + e.getClass().getSimpleName() + " ya existe.\n");
         }
     }
 
