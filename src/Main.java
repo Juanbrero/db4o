@@ -21,8 +21,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("\nCrea/Abre db TP2Ej1.yap\n");
-        db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "D:/Users/Juaan/UNLu/Bases de Datos II/DBs TP2/TP2Ej1.yap");
+        System.out.println("\nCrea/Abre db\n");
+        db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "/ruta/a/database/example.yap");
 
         try {
             int op = -1;
