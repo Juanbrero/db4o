@@ -191,8 +191,8 @@ public class QueryByExample<T> extends AbstractQuery<T>{
     }
 
     @Override
-    public int verCantidadObj(T e) {
-        T eProto = null;
-        return getDb().queryByExample(eProto).size();
+    public int verCantidadObj(Class<T> e) {
+
+        return getDb().queryByExample(e).size();
     }
 }

@@ -7,7 +7,10 @@ import queryInterfaces.NativeQuery;
 import queryInterfaces.QueryByExample;
 import queryInterfaces.SODA;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class Main {
@@ -22,7 +25,16 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("\nCrea/Abre db\n");
-        db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "/ruta/a/database/example.yap");
+
+        Properties props = new Properties();
+        try (FileInputStream fis = new FileInputStream("config.properties")) {
+            props.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String dbPath = props.getProperty("db.path");
+        db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), dbPath);
 
         try {
             int op = -1;
@@ -45,8 +57,9 @@ public class Main {
                 }
                 if (op != 0) {
 
-                    idUltCli = query.verCantidadObj(new Cliente());
-                    nroUltFact = query.verCantidadObj(new Factura());
+                    idUltCli = query.verCantidadObj(Cliente.class);
+                    nroUltFact = query.verCantidadObj(Factura.class);
+
                     menu();
                 }
             }

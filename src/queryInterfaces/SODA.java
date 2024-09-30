@@ -223,9 +223,9 @@ public class SODA<T> extends AbstractQuery<T>{
     }
 
     @Override
-    public int verCantidadObj(T e) {
+    public int verCantidadObj(Class<T> e) {
         Query query = getDb().query();
-        query.constrain(e.getClass());
+        query.constrain(e);
         ObjectSet<T> obj = query.execute();
 
         return obj.size();

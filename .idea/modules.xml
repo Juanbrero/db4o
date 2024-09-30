@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Ej1.iml" filepath="$PROJECT_DIR$/Ej1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Persistencia con db4o.iml" filepath="$PROJECT_DIR$/Persistencia con db4o.iml" />
     </modules>
   </component>
 </project>

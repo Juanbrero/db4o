@@ -240,12 +240,12 @@ public class NativeQuery<T> extends AbstractQuery<T>{
     }
 
     @Override
-    public int verCantidadObj(T e) {
+    public int verCantidadObj(Class<T> e) {
 
         List<T> le = getDb().query(new Predicate<T>() {
             @Override
             public boolean match(T ee) {
-                return true;
+                return ee.getClass().equals(e);
             }
         });
 

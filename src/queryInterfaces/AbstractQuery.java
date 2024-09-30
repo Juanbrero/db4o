@@ -60,6 +60,6 @@ public abstract class AbstractQuery<T> {
 
     public abstract List<T> buscar(T e);
 
-    public abstract int verCantidadObj(T e);
+    public abstract int verCantidadObj(Class<T> e);
 
 }
