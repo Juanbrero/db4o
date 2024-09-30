@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="db4o-8.0.249.16098-all-java51">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../Program Files/db4o/db4o-8.0/lib/db4o-8.0.249.16098-all-java5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
