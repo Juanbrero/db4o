@@ -32,6 +32,11 @@ public class Cliente {
     }
 
     @Override
+    public String toString() {
+        return "[" + getId() + "] - " + getDescr();
+    }
+
+    @Override
     public boolean equals(Object o) {
         Cliente c = (Cliente) o;
 

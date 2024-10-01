@@ -34,15 +34,13 @@ public abstract class AbstractQuery<T> {
         }
     }
 
-    public void modificar(Cliente c) {
+    public void modificar(T e) {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\nIngrese nuevo nombre: ");
-        c.setDescr(sc.nextLine());
-        getDb().store(c);
-        System.out.println("\nCliente modificado con exito.\n");
+        if (e != null) {
 
-        getDb().commit();
+            getDb().store(e);
+            getDb().commit();
+        }
 
     }
 
@@ -56,13 +54,7 @@ public abstract class AbstractQuery<T> {
 
     }
 
-    public abstract void verClientes();
-
-    public abstract void cargarFactura();
-
-    public abstract void modificarFactura();
-
-    public abstract void verFacturas();
+    public abstract void ver(Class<T> e);
 
     public abstract List<T> buscar(T e);
 

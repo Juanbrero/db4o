@@ -40,6 +40,11 @@ public class Factura {
     }
 
     @Override
+    public String toString() {
+        return "Factura [" + getNro() + "] [ (" + getId() + ") " + id.getDescr() + " ] --> $" + getImporte();
+    }
+
+    @Override
     public boolean equals(Object o) {
         Factura f = (Factura) o;
 
