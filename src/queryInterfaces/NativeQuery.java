@@ -20,51 +20,6 @@ public class NativeQuery<T> extends AbstractQuery<T>{
 
 
     @Override
-    public void borrarCliente() {
-        int idCli;
-        boolean cliExiste = false;
-
-        System.out.println("\n------------------ Borrar Cliente ------------------\n");
-
-        while (!cliExiste) {
-
-            System.out.println("Ingrese el ID del cliente: ");
-            idCli = sc.nextInt();
-            int finalIdCli = idCli;
-            List<Cliente> result = getDb().query(new Predicate<Cliente>() {
-                @Override
-                public boolean match(Cliente cli) {
-                    return cli.getId() == finalIdCli;
-                }
-            });
-
-            if(!result.isEmpty()) {
-                //primero borrar facturas asociadas
-                Cliente c = result.getFirst();
-
-                List<Factura> lf = getDb().query(new Predicate<Factura>() {
-                    @Override
-                    public boolean match(Factura f) {
-                        return f.getId() == finalIdCli;
-                    }
-                });
-
-                for(Factura fact : lf) {
-                    getDb().delete(fact);
-                }
-
-                getDb().delete(c);
-                System.out.println("\nCliente borrado con exito.\n");
-                cliExiste = true;
-                getDb().commit();
-            }
-            else {
-                System.err.println("\nID de cliente [" + idCli + "] no existe. Intente de nuevo.\n");
-            }
-        }
-    }
-
-    @Override
     public void verClientes() {
         System.out.println("\n------------------ Lista de Clientes ------------------\n");
 
@@ -160,40 +115,6 @@ public class NativeQuery<T> extends AbstractQuery<T>{
                 getDb().store(f);
 
                 System.out.println("\nFactura [" + f.getNro() + "] actualizada con exito.\n");
-
-                factExiste = true;
-                getDb().commit();
-            }
-            else {
-                System.err.println("\nNro de factura [" + nroFact + "] no existe. Intente de nuevo.\n");
-            }
-        }
-    }
-
-    @Override
-    public void borrarFactura() {
-        boolean factExiste = false;
-        int nroFact;
-        System.out.println("\n------------------ Borrar Factura ------------------\n");
-
-        while (!factExiste) {
-            System.out.println("Ingrese el numero de factura: ");
-            nroFact = sc.nextInt();
-
-            // Busco si factura existe
-            int finalNroFact = nroFact;
-            List<Factura> lf = getDb().query(new Predicate<Factura>() {
-                @Override
-                public boolean match(Factura f) {
-                    return f.getNro() == finalNroFact;
-                }
-            });
-
-            if (!lf.isEmpty()) {
-                Factura f = lf.getFirst();
-                getDb().delete(f);
-
-                System.out.println("\nFactura [" + f.getNro() + "] borrada con exito.\n");
 
                 factExiste = true;
                 getDb().commit();

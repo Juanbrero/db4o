@@ -120,29 +120,18 @@ public class Main {
                 case 2:
                     clean();
                     System.out.println("\n------------------ Modificar Cliente ------------------\n");
-                    boolean cliExiste = false;
-                    Cliente temp = new Cliente();
-                    List<Cliente> lcli = List.of();
-                    while (!cliExiste) {
-                        System.out.println("Ingrese el ID del cliente: ");
-                        int idCli = sc.nextInt();
-                        sc.nextLine();
-                        temp.setId(idCli);
-                        lcli = query.buscar(temp);
-                        if (lcli.isEmpty()){
-
-                            System.err.println("\nID de cliente [" + idCli + "] no existe. Intente de nuevo.\n");
-                        }
-                        else {
-                            cliExiste = true;
-                        }
-
-                    }
-                    query.modificar(lcli.getFirst());
+                    query.modificar(inputCliente());
                     break;
                 case 3:
                     clean();
-                    query.borrarCliente();
+                    System.out.println("\n------------------ Borrar Cliente ------------------\n");
+                    Cliente temp = inputCliente();
+                    List<Factura> lf = query.buscar(new Factura(0,temp));
+                    for (Factura f : lf) {
+                        query.borrar(f);
+                    }
+                    query.borrar(temp);
+
                     break;
                 case 4:
                     clean();
@@ -158,7 +147,7 @@ public class Main {
                     break;
                 case 7:
                     clean();
-                    query.borrarFactura();
+//                    query.borrar();
                     break;
                 case 8:
                     clean();
@@ -178,5 +167,26 @@ public class Main {
         }
     }
 
+    public static Cliente inputCliente() {
+        boolean cliExiste = false;
+        Cliente temp = new Cliente();
+        List<Cliente> lcli = List.of();
+        while (!cliExiste) {
+            System.out.println("Ingrese el ID del cliente: ");
+            int idCli = sc.nextInt();
+            sc.nextLine();
+            temp.setId(idCli);
+            lcli = query.buscar(temp);
+            if (lcli.isEmpty()){
+
+                System.err.println("\nID de cliente [" + idCli + "] no existe. Intente de nuevo.\n");
+            }
+            else {
+                cliExiste = true;
+            }
+
+        }
+        return lcli.getFirst();
+    }
 
 }

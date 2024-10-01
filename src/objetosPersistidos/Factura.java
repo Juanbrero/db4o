@@ -43,7 +43,7 @@ public class Factura {
     public boolean equals(Object o) {
         Factura f = (Factura) o;
 
-        return ((this.getId() == f.getId()) && (this.getNro() == f.getNro()));
+        return (this.getId() == f.getId());
 
     }
 

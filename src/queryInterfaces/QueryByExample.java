@@ -3,6 +3,7 @@ package queryInterfaces;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Scanner;
 import objetosPersistidos.Cliente;
@@ -17,41 +18,6 @@ public class QueryByExample<T> extends AbstractQuery<T>{
         this.setDb(db);
     }
 
-
-    @Override
-    public void borrarCliente() {
-        int idCli;
-        boolean cliExiste = false;
-
-        System.out.println("\n------------------ Borrar Cliente ------------------\n");
-
-        while (!cliExiste) {
-
-            System.out.println("Ingrese el ID del cliente: ");
-            idCli = sc.nextInt();
-            Cliente proto = new Cliente(idCli, null);
-            ObjectSet<Cliente> result = getDb().queryByExample(proto);
-
-            if(!result.isEmpty()) {
-                //primero borrar facturas asociadas
-                Cliente c = result.getFirst();
-                Factura f = new Factura(0,c);
-                ObjectSet<Factura> fc = getDb().queryByExample(f);
-
-                for(Factura fact : fc) {
-                    getDb().delete(fact);
-                }
-
-                getDb().delete(c);
-                System.out.println("\nCliente borrado con exito.\n");
-                cliExiste = true;
-                getDb().commit();
-            }
-            else {
-                System.err.println("\nID de cliente [" + idCli + "] no existe. Intente de nuevo.\n");
-            }
-        }
-    }
 
     @Override
     public void verClientes() {
@@ -142,35 +108,6 @@ public class QueryByExample<T> extends AbstractQuery<T>{
     }
 
     @Override
-    public void borrarFactura() {
-        boolean factExiste = false;
-        int nroFact;
-        System.out.println("\n------------------ Borrar Factura ------------------\n");
-
-        while (!factExiste) {
-            System.out.println("Ingrese el numero de factura: ");
-            nroFact = sc.nextInt();
-
-            // Busco si factura existe con QBE
-            Factura proto = new Factura(nroFact,null);
-            ObjectSet<Factura> result = getDb().queryByExample(proto);
-
-            if (!result.isEmpty()) {
-                Factura f = result.getFirst();
-                getDb().delete(f);
-
-                System.out.println("\nFactura [" + f.getNro() + "] borrada con exito.\n");
-
-                factExiste = true;
-                getDb().commit();
-            }
-            else {
-                System.err.println("\nNro de factura [" + nroFact + "] no existe. Intente de nuevo.\n");
-            }
-        }
-    }
-
-    @Override
     public void verFacturas() {
         System.out.println("\n------------------ Lista de Facturas ------------------\n");
         Factura proto = new Factura(0,null);
@@ -180,6 +117,7 @@ public class QueryByExample<T> extends AbstractQuery<T>{
             Cliente protoCli = new Cliente(f.getId(),null);
             ObjectSet<Cliente> cli = getDb().queryByExample(protoCli);
             System.out.println("Factura [" + f.getNro() + "] [ (" + f.getId() + ") " + cli.getFirst().getDescr() + " ] --> $" + f.getImporte());
+
         }
 
     }

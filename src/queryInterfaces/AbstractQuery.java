@@ -46,15 +46,21 @@ public abstract class AbstractQuery<T> {
 
     }
 
-    public abstract void borrarCliente();
+    public void borrar(T e) {
+
+        if (e != null) {
+
+            getDb().delete(e);
+            getDb().commit();
+        }
+
+    }
 
     public abstract void verClientes();
 
     public abstract void cargarFactura();
 
     public abstract void modificarFactura();
-
-    public abstract void borrarFactura();
 
     public abstract void verFacturas();
 
